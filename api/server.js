@@ -1,9 +1,16 @@
 const express = require('express');
-const router = require('./accounts/accounts-router');
+const accountsRouter = require('./accounts/accounts-router');
 
 const server = express();
 
 server.use(express.json());
-server.use('/api/accounts', router);
+
+server.use('/api/accounts', accountsRouter);
+
+server.use('*', (req, res) => {
+	res.status(404).json({
+		messgae: 'not found',
+	});
+});
 
 module.exports = server;
